@@ -1,0 +1,33 @@
+<div id="app"></div>
+<script type="module">
+  import Websocket from "https://cdn.skypack.dev/reconnecting-websocket";
+
+  const url = "wss://ws-fggq5.ondigitalocean.app";
+  const channel = "residence";
+
+  const socket = new Websocket(url);
+
+  socket.addEventListener("message", ({ data }) => {
+    const message = safeJsonParse(data);
+    console.log(message);
+    if (message && message.type === "CHAT" && message.channel === channel) {
+      parent.postMessage(
+        {
+          pluginMessage: {
+            message: "chat",
+            value: message.value,
+          },
+        },
+        "*"
+      );
+    }
+  });
+
+  const safeJsonParse = (str) => {
+    try {
+      return JSON.parse(str);
+    } catch (err) {
+      return null;
+    }
+  };
+</script>

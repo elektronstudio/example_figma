@@ -1,0 +1,7 @@
+{
+  "name": "example_figma",
+  "id": "848272087298110807",
+  "api": "1.0.0",
+  "main": "code.js",
+  "ui": "ui.html"
+}
